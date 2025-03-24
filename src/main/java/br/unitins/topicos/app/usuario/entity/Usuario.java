@@ -3,6 +3,8 @@ package br.unitins.topicos.app.usuario.entity;
 import br.unitins.topicos.app.base.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -16,6 +18,7 @@ public class Usuario extends BaseEntity {
 
     @Id
     @Column(name = "id_usuario", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nome_completo", nullable = false, length = 500)

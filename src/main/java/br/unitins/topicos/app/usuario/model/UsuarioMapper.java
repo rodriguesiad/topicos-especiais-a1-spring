@@ -5,5 +5,5 @@ import br.unitins.topicos.app.usuario.entity.Usuario;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface IUsuarioMapper extends BaseMapper<Usuario, UsuarioRequest, UsuarioResponse> {
+public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioRequest, UsuarioResponse> {
 }

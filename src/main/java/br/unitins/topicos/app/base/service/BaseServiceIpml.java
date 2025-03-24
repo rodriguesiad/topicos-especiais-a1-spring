@@ -21,6 +21,21 @@ public class BaseServiceIpml<T extends BaseEntity> implements BaseService<T> {
     }
 
     @Override
+    @Transactional
+    public T create(T entity) throws ApiException {
+        return repository.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public T update(String id, T entity) throws ApiException {
+        final T t = repository.findById(id).orElseThrow(() -> new ApiException("Registro não encontrado: " + id));
+        entity.setDataCriacao(t.getDataCriacao());
+        bind(t, entity);
+        return repository.save(t);
+    }
+
+    @Override
     public T findById(String id) throws ApiException {
         return repository
                 .findById(id)
@@ -43,7 +58,7 @@ public class BaseServiceIpml<T extends BaseEntity> implements BaseService<T> {
     }
 
     public void bind(T entity, T update) {
-        BeanUtils.copyProperties(update, entity, "id");
+        BeanUtils.copyProperties(update, entity, "id", "dataCriacao", "dataAlteracao");
     }
 
     public BaseRepository<T> getRepository() {

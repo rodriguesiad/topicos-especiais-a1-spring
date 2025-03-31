@@ -7,6 +7,7 @@ import br.unitins.topicos.app.usuario.entity.Usuario;
 import br.unitins.topicos.app.usuario.model.UsuarioUpdateRequest;
 import br.unitins.topicos.app.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -31,6 +32,7 @@ public class UsuarioServiceIpml extends BaseServiceIpml<Usuario> implements Usua
     @Override
     @Transactional
     public Usuario update(String id, UsuarioUpdateRequest request) throws ApiException {
+        this.validarUsuario(id);
         Usuario entity = this.findById(id);
 
         if (Objects.nonNull(request.getNomeCompleto()) && !request.getNomeCompleto().isBlank()) {
@@ -48,6 +50,12 @@ public class UsuarioServiceIpml extends BaseServiceIpml<Usuario> implements Usua
         return getRepository().save(entity);
     }
 
+    @Override
+    public Usuario findById(String id) throws ApiException {
+        validarUsuario(id);
+        return super.findById(id);
+    }
+
     private void validate(Usuario entity) throws ApiException {
         if (Objects.isNull(entity)) {
             throw new ApiException("A entidade não pode ser nula.");
@@ -59,6 +67,17 @@ public class UsuarioServiceIpml extends BaseServiceIpml<Usuario> implements Usua
 
         if (Boolean.FALSE.equals(user.isEmpty())) {
             throw new ApiException("O e-mail informado já está sendo utilizado.");
+        }
+    }
+
+    private Usuario getUsuarioLogado() throws ApiException {
+        return (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    private void validarUsuario(String id) throws ApiException {
+        Usuario usuarioLogado = getUsuarioLogado();
+        if (!usuarioLogado.getId().equals(id)) {
+            throw new ApiException("Ação permitida apenas para o próprio usuário.");
         }
     }
 

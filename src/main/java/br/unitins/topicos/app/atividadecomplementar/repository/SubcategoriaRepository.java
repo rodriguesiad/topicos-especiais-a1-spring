@@ -1,8 +1,6 @@
-package br.unitins.topicos.app.subcategoria.repository;
+package br.unitins.topicos.app.atividadecomplementar.repository;
 
 import br.unitins.topicos.app.base.repository.BaseRepository;
-import br.unitins.topicos.app.subcategoria.entity.Subcategoria;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
 
 @Repository

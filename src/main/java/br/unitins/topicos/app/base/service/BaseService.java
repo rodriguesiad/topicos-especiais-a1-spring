@@ -13,9 +13,9 @@ public interface BaseService<T extends BaseEntity> {
 
     T create(T entity) throws ApiException;
 
-    T update(String id, T entity) throws ApiException;
+    T update(Integer id, T entity) throws ApiException;
 
-    T findById(String id) throws ApiException;
+    T findById(Integer id) throws ApiException;
 
     List<T> findAll();
 

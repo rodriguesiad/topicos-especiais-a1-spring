@@ -36,7 +36,7 @@ public class UsuarioController extends BaseController<Usuario, UsuarioRequest, U
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<UsuarioResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<UsuarioResponse> findById(@PathVariable Integer id) throws ApiException {
         return super.findById(id);
     }
 
@@ -66,7 +66,7 @@ public class UsuarioController extends BaseController<Usuario, UsuarioRequest, U
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<UsuarioResponse> update(@PathVariable("id") String id,
+    public ResponseEntity<UsuarioResponse> update(@PathVariable("id") Integer id,
                                                   @Valid @RequestBody UsuarioUpdateRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }

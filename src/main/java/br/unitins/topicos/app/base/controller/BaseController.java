@@ -33,7 +33,7 @@ public abstract class BaseController<T extends BaseEntity, R, Q> {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Q> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<Q> findById(@PathVariable Integer id) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(service.findById(id)));
     }
 

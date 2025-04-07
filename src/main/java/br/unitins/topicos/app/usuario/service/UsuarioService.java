@@ -7,6 +7,6 @@ import br.unitins.topicos.app.usuario.model.UsuarioUpdateRequest;
 
 public interface UsuarioService extends BaseService<Usuario> {
 
-    Usuario update(String id, UsuarioUpdateRequest request) throws ApiException;
+    Usuario update(Integer id, UsuarioUpdateRequest request) throws ApiException;
 
 }

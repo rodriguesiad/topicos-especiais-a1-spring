@@ -1,5 +1,6 @@
 package br.unitins.topicos.app.atividadecomplementar.entity;
 
+import br.unitins.topicos.app.base.entity.BaseEntity;
 import br.unitins.topicos.app.subcategoria.entity.Subcategoria;
 import br.unitins.topicos.app.usuario.entity.Usuario;
 import jakarta.persistence.Column;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "atividade_complementar")
-public class AtividadeComplementar {
+public class AtividadeComplementar extends BaseEntity {
     @Id
     @Column(name = "id_atividade_complementar", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

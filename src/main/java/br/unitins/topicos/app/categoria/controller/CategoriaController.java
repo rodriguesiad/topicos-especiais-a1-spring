@@ -1,7 +1,12 @@
-package br.unitins.topicos.app.subcategoria.controller;
+package br.unitins.topicos.app.categoria.controller;
 
 import br.unitins.topicos.app.base.controller.BaseController;
 import br.unitins.topicos.app.base.exception.ApiException;
+import br.unitins.topicos.app.categoria.entity.Categoria;
+import br.unitins.topicos.app.categoria.model.CategoriaMapper;
+import br.unitins.topicos.app.categoria.model.CategoriaRequest;
+import br.unitins.topicos.app.categoria.model.CategoriaResponse;
+import br.unitins.topicos.app.categoria.service.CategoriaService;
 import br.unitins.topicos.app.subcategoria.entity.Subcategoria;
 import br.unitins.topicos.app.subcategoria.model.SubcategoriaMapper;
 import br.unitins.topicos.app.subcategoria.model.SubcategoriaRequest;
@@ -22,30 +27,30 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/subcategorias")
-public class SubcategoriaController extends BaseController<Subcategoria, SubcategoriaRequest, SubcategoriaResponse> {
+@RequestMapping("/categorias")
+public class CategoriaController extends BaseController<Categoria, CategoriaRequest, CategoriaResponse> {
 
-    protected SubcategoriaController(SubcategoriaService service, SubcategoriaMapper mapper) {
+    protected CategoriaController(CategoriaService service, CategoriaMapper mapper) {
         super(service, mapper);
     }
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<SubcategoriaResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<CategoriaResponse> findById(@PathVariable String id) throws ApiException {
         return super.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<SubcategoriaResponse> create(@Valid @RequestBody SubcategoriaRequest entityRequest,
+    public ResponseEntity<CategoriaResponse> create(@Valid @RequestBody CategoriaRequest entityRequest,
                                                   UriComponentsBuilder uriComponentsBuilder) throws ApiException {
-        Subcategoria entity = getService().create(getMapper().fromRequest(entityRequest));
+        Categoria entity = getService().create(getMapper().fromRequest(entityRequest));
         URI uri = uriComponentsBuilder.path("/{id}").buildAndExpand(entity.getId()).toUri();
         return ResponseEntity.created(uri).body(getMapper().toResponse(entity));
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<SubcategoriaResponse> update(@PathVariable("id") String id,
-                                                  @Valid @RequestBody SubcategoriaRequest entityRequest) throws ApiException {
+    public ResponseEntity<CategoriaResponse> update(@PathVariable("id") String id,
+                                                  @Valid @RequestBody CategoriaRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }
 
@@ -56,13 +61,13 @@ public class SubcategoriaController extends BaseController<Subcategoria, Subcate
     }
 
     @Override
-    public SubcategoriaService getService() {
-        return (SubcategoriaService) super.getService();
+    public CategoriaService getService() {
+        return (CategoriaService) super.getService();
     }
 
     @Override
-    public SubcategoriaMapper getMapper() {
-        return (SubcategoriaMapper) super.getMapper();
+    public CategoriaMapper getMapper() {
+        return (CategoriaMapper) super.getMapper();
     }
 
 }

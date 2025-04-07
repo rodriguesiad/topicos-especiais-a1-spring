@@ -4,8 +4,8 @@ import br.unitins.topicos.app.base.exception.ApiException;
 import br.unitins.topicos.app.base.repository.BaseRepository;
 import br.unitins.topicos.app.base.service.BaseServiceIpml;
 import br.unitins.topicos.app.categoria.entity.Categoria;
-import br.unitins.topicos.app.categoria.repository.CategoriaRepository;
 import br.unitins.topicos.app.categoria.model.CategoriaRequest;
+import br.unitins.topicos.app.categoria.repository.CategoriaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -24,24 +24,16 @@ public class CategoriaServiceImpl extends BaseServiceIpml<Categoria> implements 
         return super.create(entity);
     }
 
-//    @Transactional
-//    public Categoria update(String id, CategoriaRequest request) throws ApiException {
-//        Categoria entity = this.findById(id);
-//
-//        if (Objects.nonNull(request.getNome()) && !request.getNome().isBlank()) {
-//            entity.setNome(request.getNome());
-//        }
-//
-//        if (request.getCargaHorariaMaxima() != null) {
-//            entity.setCargaHorariaMaxima(request.getCargaHorariaMaxima());
-//        }
-//
-//        if (request.getCategoria() != null) {
-//            entity.setCategoria(categoriaService.findById(String.valueOf(request.getCategoria())));
-//        }
-//
-//        return getRepository().save(entity);
-//    }
+    @Transactional
+    public Categoria update(String id, CategoriaRequest request) throws ApiException {
+        Categoria entity = this.findById(id);
+
+        if (Objects.nonNull(request.getNome()) && !request.getNome().isBlank()) {
+            entity.setNome(request.getNome());
+        }
+
+        return getRepository().save(entity);
+    }
 
     @Transactional
     public void delete(String id) throws ApiException {

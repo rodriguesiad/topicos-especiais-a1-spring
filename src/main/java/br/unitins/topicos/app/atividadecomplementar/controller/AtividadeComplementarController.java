@@ -1,5 +1,10 @@
-package br.unitins.topicos.app.subcategoria.controller;
+package br.unitins.topicos.app.atividadecomplementar.controller;
 
+import br.unitins.topicos.app.atividadecomplementar.entity.AtividadeComplementar;
+import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarMapper;
+import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarRequest;
+import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarResponse;
+import br.unitins.topicos.app.atividadecomplementar.service.AtividadeComplementarService;
 import br.unitins.topicos.app.base.controller.BaseController;
 import br.unitins.topicos.app.base.exception.ApiException;
 import br.unitins.topicos.app.subcategoria.entity.Subcategoria;
@@ -22,30 +27,30 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/subcategorias")
-public class SubcategoriaController extends BaseController<Subcategoria, SubcategoriaRequest, SubcategoriaResponse> {
+@RequestMapping("/atividades_complementares")
+public class AtividadeComplementarController extends BaseController<AtividadeComplementar, AtividadeComplementarRequest, AtividadeComplementarResponse> {
 
-    protected SubcategoriaController(SubcategoriaService service, SubcategoriaMapper mapper) {
+    protected AtividadeComplementarController(AtividadeComplementarService service, AtividadeComplementarMapper mapper) {
         super(service, mapper);
     }
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<SubcategoriaResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<AtividadeComplementarResponse> findById(@PathVariable String id) throws ApiException {
         return super.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<SubcategoriaResponse> create(@Valid @RequestBody SubcategoriaRequest entityRequest,
+    public ResponseEntity<AtividadeComplementarResponse> create(@Valid @RequestBody AtividadeComplementarRequest entityRequest,
                                                   UriComponentsBuilder uriComponentsBuilder) throws ApiException {
-        Subcategoria entity = getService().create(getMapper().fromRequest(entityRequest));
+        AtividadeComplementar entity = getService().create(getMapper().fromRequest(entityRequest));
         URI uri = uriComponentsBuilder.path("/{id}").buildAndExpand(entity.getId()).toUri();
         return ResponseEntity.created(uri).body(getMapper().toResponse(entity));
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<SubcategoriaResponse> update(@PathVariable("id") String id,
-                                                  @Valid @RequestBody SubcategoriaRequest entityRequest) throws ApiException {
+    public ResponseEntity<AtividadeComplementarResponse> update(@PathVariable("id") String id,
+                                                  @Valid @RequestBody AtividadeComplementarRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }
 
@@ -56,13 +61,13 @@ public class SubcategoriaController extends BaseController<Subcategoria, Subcate
     }
 
     @Override
-    public SubcategoriaService getService() {
-        return (SubcategoriaService) super.getService();
+    public AtividadeComplementarService getService() {
+        return (AtividadeComplementarService) super.getService();
     }
 
     @Override
-    public SubcategoriaMapper getMapper() {
-        return (SubcategoriaMapper) super.getMapper();
+    public AtividadeComplementarMapper getMapper() {
+        return (AtividadeComplementarMapper) super.getMapper();
     }
 
 }

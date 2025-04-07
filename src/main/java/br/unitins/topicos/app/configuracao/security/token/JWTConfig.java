@@ -20,7 +20,7 @@ import javax.crypto.spec.SecretKeySpec;
 @Configuration
 public class JWTConfig {
 
-    @Value("${api.security.token.secret}")
+    @Value("${app.security.token.secret}")
     private String secret;
 
     @Bean
@@ -34,7 +34,7 @@ public class JWTConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(@Value("${jwt.secret}") String secret) {
+    public JwtDecoder jwtDecoder() {
         SecretKey secretKey = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
         return NimbusJwtDecoder.withSecretKey(secretKey).build();
     }

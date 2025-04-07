@@ -14,7 +14,7 @@ public interface UsuarioRepository extends BaseRepository<Usuario> {
     @Query("""
                 SELECT u FROM Usuario u WHERE u.email = :email AND u.id <> :id ORDER BY u.dataCriacao LIMIT 1
             """)
-    Optional<Usuario> findEmailDuplicado(String email, String id);
+    Optional<Usuario> findEmailDuplicado(String email, Integer id);
 
     Optional<UserDetails> findByEmail(String email);
 }

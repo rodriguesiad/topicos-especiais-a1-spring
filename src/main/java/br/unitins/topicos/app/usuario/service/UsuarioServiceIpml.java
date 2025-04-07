@@ -8,6 +8,7 @@ import br.unitins.topicos.app.usuario.model.UsuarioUpdateRequest;
 import br.unitins.topicos.app.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -16,15 +17,23 @@ import java.util.Optional;
 @Service
 public class UsuarioServiceIpml extends BaseServiceIpml<Usuario> implements UsuarioService {
 
-    protected UsuarioServiceIpml(final BaseRepository<Usuario> repository) {
+    private final PasswordEncoder passwordEncoder;
+
+    protected UsuarioServiceIpml(final BaseRepository<Usuario> repository, PasswordEncoder passwordEncoder) {
         super(repository);
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public Usuario create(Usuario entity) throws ApiException {
         this.validate(entity);
-        validarRepeticaoEmail(entity.getEmail(), "id padrão para pesquisa");
+
+        String encodedPassword = passwordEncoder.encode(entity.getSenha());
+        entity.setSenha(encodedPassword);
+
+        Integer idPadraoPesquisa = 111;
+        validarRepeticaoEmail(entity.getEmail(), idPadraoPesquisa);
 
         return super.create(entity);
     }
@@ -62,7 +71,7 @@ public class UsuarioServiceIpml extends BaseServiceIpml<Usuario> implements Usua
         }
     }
 
-    private void validarRepeticaoEmail(String email, String id) throws ApiException {
+    private void validarRepeticaoEmail(String email, Integer id) throws ApiException {
         Optional<Usuario> user = getRepository().findEmailDuplicado(email, id);
 
         if (Boolean.FALSE.equals(user.isEmpty())) {

@@ -30,11 +30,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (tokenJWT != null) {
             String subject = tokenService.getSubject(tokenJWT);
-            UserDetails user = userRepository.findByEmail(subject).orElseThrow(() -> new RuntimeException("Não foi possível consultar usuário pelo e-mail " + subject));
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails user = userRepository.findByEmail(subject).orElseThrow(() -> new RuntimeException("Não foi possível consultar usuário pelo e-mail " + subject));
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
 
         filterChain.doFilter(request, response);
@@ -47,7 +49,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             return null;
         }
 
-        return authorizationHeader;
+        return authorizationHeader.replace("Bearer", "").strip();
     }
 
 }

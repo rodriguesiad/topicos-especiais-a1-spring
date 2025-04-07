@@ -4,7 +4,6 @@ import br.unitins.topicos.app.auth.model.LoginRequest;
 import br.unitins.topicos.app.configuracao.security.token.TokenJWTResponse;
 import br.unitins.topicos.app.configuracao.security.token.TokenService;
 import br.unitins.topicos.app.usuario.entity.Usuario;
-import br.unitins.topicos.app.usuario.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,12 +19,10 @@ public class AuthenticationController {
 
     private AuthenticationManager manager;
     private TokenService tokenService;
-    private UsuarioService usuarioService;
 
-    public AuthenticationController(AuthenticationManager manager, TokenService tokenService, UsuarioService usuarioService) {
+    public AuthenticationController(AuthenticationManager manager, TokenService tokenService) {
         this.manager = manager;
         this.tokenService = tokenService;
-        this.usuarioService = usuarioService;
     }
 
     @PostMapping
@@ -36,6 +33,5 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(new TokenJWTResponse(tokenJWT));
     }
-
 
 }

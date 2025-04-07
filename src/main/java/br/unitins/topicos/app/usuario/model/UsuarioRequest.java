@@ -5,12 +5,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+/**
+ * Classe que representa o modelo de dados de entrada para a criação ou atualização de um usuário.
+ *
+ * @author Iad Rodrigues
+ */
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

@@ -2,14 +2,17 @@ package br.unitins.topicos.app.usuario.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+/**
+ * Classe que representa o modelo de dados de resposta ao retornar informações de um usuário.
+ *
+ * @author Iad Rodrigues
+ */
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

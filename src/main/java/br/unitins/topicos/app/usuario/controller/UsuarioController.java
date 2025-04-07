@@ -9,6 +9,9 @@ import br.unitins.topicos.app.usuario.model.UsuarioResponse;
 import br.unitins.topicos.app.usuario.model.UsuarioUpdateRequest;
 import br.unitins.topicos.app.usuario.service.UsuarioService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,7 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
+/**
+ * Controlador responsável pela gestão dos usuários na aplicação.
+ * Fornece endpoints para criação, leitura e atualização de usuários.
+ *
+ * @author Iad Rodrigues
+ */
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController extends BaseController<Usuario, UsuarioRequest, UsuarioResponse> {
@@ -31,9 +42,26 @@ public class UsuarioController extends BaseController<Usuario, UsuarioRequest, U
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<UsuarioResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<UsuarioResponse> findById(@PathVariable Integer id) throws ApiException {
         return super.findById(id);
     }
+
+    // Impedindo que um usuário acesse as informações dos demais usuários
+    @Override
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<UsuarioResponse>> findAll() throws ApiException {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Collections.emptyList());
+    }
+
+    // Impedindo que um usuário acesse as informações dos demais usuários
+    @Override
+    @GetMapping
+    public ResponseEntity<Page<UsuarioResponse>> findAll(Pageable pageable) throws ApiException {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Page.empty());
+    }
+
 
     @PostMapping
     public ResponseEntity<UsuarioResponse> create(@Valid @RequestBody UsuarioRequest entityRequest,
@@ -44,7 +72,7 @@ public class UsuarioController extends BaseController<Usuario, UsuarioRequest, U
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<UsuarioResponse> update(@PathVariable("id") String id,
+    public ResponseEntity<UsuarioResponse> update(@PathVariable("id") Integer id,
                                                   @Valid @RequestBody UsuarioUpdateRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }

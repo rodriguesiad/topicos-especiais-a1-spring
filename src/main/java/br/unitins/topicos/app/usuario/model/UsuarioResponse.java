@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Classe que representa o modelo de dados de resposta ao retornar informações de um usuário.
+ *
+ * @author Iad Rodrigues
+ */
 @Data
 @Builder
 @NoArgsConstructor

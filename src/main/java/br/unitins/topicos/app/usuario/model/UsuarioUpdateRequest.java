@@ -7,6 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * Classe que representa o modelo de dados para a atualização de um usuário existente.
+ *
+ * @author Iad Rodrigues
+ */
 @Data
 @Builder
 @NoArgsConstructor

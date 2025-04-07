@@ -13,6 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * Entidade que representa um usuário no sistema.
+ * Esta classe mapeia a tabela {@code usuario} no banco de dados e implementa a interface
+ * {@link org.springframework.security.core.userdetails.UserDetails}, sendo usada para autenticação e autorização.
+ *
+ * @author Iad Rodrigues
+ */
 @Data
 @Entity
 @Table(name = "usuario")

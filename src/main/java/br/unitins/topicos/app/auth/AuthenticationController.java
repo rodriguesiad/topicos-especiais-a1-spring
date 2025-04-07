@@ -13,6 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * Controlador responsável pelo gerenciamento de autenticação de usuários.
+ * Esta classe permite que um usuário faça login fornecendo seu nome de usuário
+ * e senha. Se as credenciais forem válidas, ela retorna um token JWT que
+ * pode ser usado para autenticação em requisições subsequentes.
+ *
+ * @author Iad Rodrigues
+ */
 @RestController
 @RequestMapping("/login")
 public class AuthenticationController {

@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe que representa o modelo de dados de entrada para a solicitação de login.
+ *
+ * @author Iad Rodrigues
+ */
 @Data
 @Builder
 @NoArgsConstructor

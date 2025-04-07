@@ -14,6 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Implementação do serviço de usuário que fornece funcionalidades como criação, atualização e validação de usuários.
+ * Esta classe implementa a lógica de negócios associada à manipulação dos dados do usuário, incluindo criptografia de senha
+ * e validação de e-mails duplicados. Utiliza {@link PasswordEncoder} para a segurança das senhas.
+ *
+ * @author Iad Rodrigues
+ */
 @Service
 public class UsuarioServiceIpml extends BaseServiceIpml<Usuario> implements UsuarioService {
 

@@ -8,6 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repositório responsável pela persistência dos dados da entidade {@link Usuario}.
+ * Extende {@link br.unitins.topicos.app.base.repository.BaseRepository} e fornece métodos para operações de consulta e manipulação
+ * dos dados de usuários, incluindo a verificação de e-mails duplicados.
+ *
+ * @author Iad Rodrigues
+ */
 @Repository
 public interface UsuarioRepository extends BaseRepository<Usuario> {
 

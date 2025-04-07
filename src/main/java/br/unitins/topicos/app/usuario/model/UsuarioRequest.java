@@ -8,6 +8,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe que representa o modelo de dados de entrada para a criação ou atualização de um usuário.
+ *
+ * @author Iad Rodrigues
+ */
 @Data
 @Builder
 @NoArgsConstructor

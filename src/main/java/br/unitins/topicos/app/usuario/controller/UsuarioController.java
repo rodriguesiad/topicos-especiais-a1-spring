@@ -26,6 +26,12 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Controlador responsável pela gestão dos usuários na aplicação.
+ * Fornece endpoints para criação, leitura e atualização de usuários.
+ *
+ * @author Iad Rodrigues
+ */
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController extends BaseController<Usuario, UsuarioRequest, UsuarioResponse> {

@@ -34,7 +34,7 @@ public class AtividadeComplementarServiceImpl extends BaseServiceIpml<AtividadeC
     }
 
     @Transactional
-    public AtividadeComplementar update(String id, AtividadeComplementarRequest request) throws ApiException {
+    public AtividadeComplementar update(Integer id, AtividadeComplementarRequest request) throws ApiException {
         AtividadeComplementar entity = this.findById(id);
 
         if (Objects.nonNull(request.getTitulo()) && !request.getTitulo().isBlank()) {
@@ -50,18 +50,18 @@ public class AtividadeComplementarServiceImpl extends BaseServiceIpml<AtividadeC
         }
 
         if (request.getSubcategoria() != null) {
-            entity.setSubcategoria(subcategoriaService.findById(String.valueOf(request.getSubcategoria())));
+            entity.setSubcategoria(subcategoriaService.findById(request.getSubcategoria()));
         }
 
         if (request.getUsuario() != null) {
-            entity.setUsuario(usuarioService.findById(String.valueOf(request.getUsuario())));
+            entity.setUsuario(usuarioService.findById(request.getUsuario()));
         }
 
         return getRepository().save(entity);
     }
 
     @Transactional
-    public void delete(String id) throws ApiException {
+    public void delete(Integer id) throws ApiException {
         AtividadeComplementar entity = this.findById(id);
         getRepository().delete(entity);
     }

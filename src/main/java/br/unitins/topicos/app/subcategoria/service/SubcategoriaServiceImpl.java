@@ -29,7 +29,7 @@ public class SubcategoriaServiceImpl extends BaseServiceIpml<Subcategoria> imple
     }
 
     @Transactional
-    public Subcategoria update(String id, SubcategoriaRequest request) throws ApiException {
+    public Subcategoria update(Integer id, SubcategoriaRequest request) throws ApiException {
         Subcategoria entity = this.findById(id);
 
         if (Objects.nonNull(request.getNome()) && !request.getNome().isBlank()) {
@@ -41,14 +41,14 @@ public class SubcategoriaServiceImpl extends BaseServiceIpml<Subcategoria> imple
         }
 
         if (request.getCategoria() != null) {
-            entity.setCategoria(categoriaService.findById(String.valueOf(request.getCategoria())));
+            entity.setCategoria(categoriaService.findById(request.getCategoria()));
         }
 
         return getRepository().save(entity);
     }
 
     @Transactional
-    public void delete(String id) throws ApiException {
+    public void delete(Integer id) throws ApiException {
         Subcategoria entity = this.findById(id);
         getRepository().delete(entity);
     }

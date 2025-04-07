@@ -31,7 +31,7 @@ public class SubcategoriaController extends BaseController<Subcategoria, Subcate
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<SubcategoriaResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<SubcategoriaResponse> findById(@PathVariable Integer id) throws ApiException {
         return super.findById(id);
     }
 
@@ -44,13 +44,13 @@ public class SubcategoriaController extends BaseController<Subcategoria, Subcate
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<SubcategoriaResponse> update(@PathVariable("id") String id,
+    public ResponseEntity<SubcategoriaResponse> update(@PathVariable("id") Integer id,
                                                   @Valid @RequestBody SubcategoriaRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(String id) throws ApiException {
+    public ResponseEntity<Void> delete(Integer id) throws ApiException {
         getService().delete(id);
         return ResponseEntity.ok().build();
     }

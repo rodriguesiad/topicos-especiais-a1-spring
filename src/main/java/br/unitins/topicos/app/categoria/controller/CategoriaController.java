@@ -36,7 +36,7 @@ public class CategoriaController extends BaseController<Categoria, CategoriaRequ
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<CategoriaResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<CategoriaResponse> findById(@PathVariable Integer id) throws ApiException {
         return super.findById(id);
     }
 
@@ -49,13 +49,13 @@ public class CategoriaController extends BaseController<Categoria, CategoriaRequ
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<CategoriaResponse> update(@PathVariable("id") String id,
+    public ResponseEntity<CategoriaResponse> update(@PathVariable("id") Integer id,
                                                   @Valid @RequestBody CategoriaRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(String id) throws ApiException {
+    public ResponseEntity<Void> delete(Integer id) throws ApiException {
         getService().delete(id);
         return ResponseEntity.ok().build();
     }

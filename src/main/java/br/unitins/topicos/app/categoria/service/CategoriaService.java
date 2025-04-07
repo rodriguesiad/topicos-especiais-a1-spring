@@ -6,6 +6,6 @@ import br.unitins.topicos.app.categoria.entity.Categoria;
 import br.unitins.topicos.app.categoria.model.CategoriaRequest;
 
 public interface CategoriaService extends BaseService<Categoria> {
-    Categoria update(String id, CategoriaRequest request) throws ApiException;
-    void delete(String id) throws ApiException;
+    Categoria update(Integer id, CategoriaRequest request) throws ApiException;
+    void delete(Integer id) throws ApiException;
 }

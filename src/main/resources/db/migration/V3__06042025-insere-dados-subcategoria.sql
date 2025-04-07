@@ -1,8 +1,3 @@
-insert into categoria(nome, data_criacao, data_alteracao) values
-('Atividades de Ensino e Iniciação à Docência', NOW(), null),
-('Atividades de Pesquisa', NOW(), null),
-('Atividades de extensão e atividades/eventos variados', NOW(), null);
-
 insert into subcategoria(nome, id_categoria, carga_horaria_maxima, data_criacao, data_alteracao) values
 ('Monitoria reconhecida pela UNITINS e/ou voluntária', 1, 40, NOW(), null),
 ('Disciplinas de outros cursos', 1, 60, NOW(), null),

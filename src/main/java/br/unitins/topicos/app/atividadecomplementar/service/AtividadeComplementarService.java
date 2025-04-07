@@ -6,6 +6,6 @@ import br.unitins.topicos.app.base.exception.ApiException;
 import br.unitins.topicos.app.base.service.BaseService;
 
 public interface AtividadeComplementarService extends BaseService<AtividadeComplementar> {
-    AtividadeComplementar update(String id, AtividadeComplementarRequest request) throws ApiException;
-    void delete(String id) throws ApiException;
+    AtividadeComplementar update(Integer id, AtividadeComplementarRequest request) throws ApiException;
+    void delete(Integer id) throws ApiException;
 }

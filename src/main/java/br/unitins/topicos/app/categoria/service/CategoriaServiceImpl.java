@@ -25,7 +25,7 @@ public class CategoriaServiceImpl extends BaseServiceIpml<Categoria> implements 
     }
 
     @Transactional
-    public Categoria update(String id, CategoriaRequest request) throws ApiException {
+    public Categoria update(Integer id, CategoriaRequest request) throws ApiException {
         Categoria entity = this.findById(id);
 
         if (Objects.nonNull(request.getNome()) && !request.getNome().isBlank()) {
@@ -36,7 +36,7 @@ public class CategoriaServiceImpl extends BaseServiceIpml<Categoria> implements 
     }
 
     @Transactional
-    public void delete(String id) throws ApiException {
+    public void delete(Integer id) throws ApiException {
         Categoria entity = this.findById(id);
         getRepository().delete(entity);
     }

@@ -36,7 +36,7 @@ public class AtividadeComplementarController extends BaseController<AtividadeCom
 
     @Override
     @GetMapping(path = "/{id}")
-    public ResponseEntity<AtividadeComplementarResponse> findById(@PathVariable String id) throws ApiException {
+    public ResponseEntity<AtividadeComplementarResponse> findById(@PathVariable Integer id) throws ApiException {
         return super.findById(id);
     }
 
@@ -49,13 +49,13 @@ public class AtividadeComplementarController extends BaseController<AtividadeCom
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<AtividadeComplementarResponse> update(@PathVariable("id") String id,
+    public ResponseEntity<AtividadeComplementarResponse> update(@PathVariable("id") Integer id,
                                                   @Valid @RequestBody AtividadeComplementarRequest entityRequest) throws ApiException {
         return ResponseEntity.ok(getMapper().toResponse(getService().update(id, entityRequest)));
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(String id) throws ApiException {
+    public ResponseEntity<Void> delete(Integer id) throws ApiException {
         getService().delete(id);
         return ResponseEntity.ok().build();
     }

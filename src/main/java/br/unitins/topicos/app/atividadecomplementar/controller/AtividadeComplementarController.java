@@ -5,6 +5,7 @@ import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarM
 import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarRequest;
 import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarResponse;
 import br.unitins.topicos.app.atividadecomplementar.service.AtividadeComplementarService;
+import br.unitins.topicos.app.atividadecomplementar.service.AtividadeComplementarServiceImpl;
 import br.unitins.topicos.app.base.controller.BaseController;
 import br.unitins.topicos.app.base.exception.ApiException;
 import br.unitins.topicos.app.subcategoria.entity.Subcategoria;
@@ -12,6 +13,7 @@ import br.unitins.topicos.app.subcategoria.model.SubcategoriaMapper;
 import br.unitins.topicos.app.subcategoria.model.SubcategoriaRequest;
 import br.unitins.topicos.app.subcategoria.model.SubcategoriaResponse;
 import br.unitins.topicos.app.subcategoria.service.SubcategoriaService;
+import br.unitins.topicos.app.usuariosituacao.model.UsuarioSituacaoResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/atividades_complementares")
@@ -69,5 +72,23 @@ public class AtividadeComplementarController extends BaseController<AtividadeCom
     public AtividadeComplementarMapper getMapper() {
         return (AtividadeComplementarMapper) super.getMapper();
     }
+
+    @GetMapping("/situacao/{usuarioId}")
+    public ResponseEntity<UsuarioSituacaoResponse> getSituacaoUsuario(@PathVariable Integer usuarioId) throws ApiException {
+        UsuarioSituacaoResponse situacao = ((AtividadeComplementarServiceImpl) getService()).calcularSituacaoDoUsuario(usuarioId);
+        return ResponseEntity.ok(situacao);
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<AtividadeComplementarResponse>> getAtividadesPorUsuario(@PathVariable Integer usuarioId) throws ApiException {
+        // Chama o serviço para buscar as atividades do usuário
+        List<AtividadeComplementar> atividades = getService().buscarPorUsuarioId(usuarioId);
+
+        // Mapeia as atividades para o formato de resposta
+        List<AtividadeComplementarResponse> response = getMapper().toListResponse(atividades);
+
+        return ResponseEntity.ok(response);
+    }
+
 
 }

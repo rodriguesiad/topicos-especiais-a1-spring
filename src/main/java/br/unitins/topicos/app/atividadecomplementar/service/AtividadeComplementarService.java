@@ -5,7 +5,10 @@ import br.unitins.topicos.app.atividadecomplementar.model.AtividadeComplementarR
 import br.unitins.topicos.app.base.exception.ApiException;
 import br.unitins.topicos.app.base.service.BaseService;
 
+import java.util.List;
+
 public interface AtividadeComplementarService extends BaseService<AtividadeComplementar> {
     AtividadeComplementar update(Integer id, AtividadeComplementarRequest request) throws ApiException;
     void delete(Integer id) throws ApiException;
+    List<AtividadeComplementar> buscarPorUsuarioId(Integer usuarioId) throws ApiException;
 }

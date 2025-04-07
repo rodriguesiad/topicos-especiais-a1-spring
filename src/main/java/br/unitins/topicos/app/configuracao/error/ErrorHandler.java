@@ -19,6 +19,13 @@ import javax.security.sasl.AuthenticationException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Classe responsável pelo tratamento de erros e exceções em toda a aplicação.
+ * Usa a anotação {@link RestControllerAdvice} para capturar exceções específicas e
+ * retornar respostas personalizadas com o código de status HTTP adequado.
+ *
+ * @author Iad Rodrigues Moraes
+ */
 @RestControllerAdvice
 public class ErrorHandler {
 

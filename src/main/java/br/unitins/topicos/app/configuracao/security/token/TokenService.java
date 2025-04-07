@@ -11,6 +11,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+
+/**
+ * Serviço responsável pela geração e validação de tokens JWT.
+ *
+ * @author Iad Rodrigues
+ */
 @Service
 public class TokenService {
 

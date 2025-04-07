@@ -21,6 +21,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Configuração de segurança do sistema, responsável por definir as regras de acesso
+ * e autenticação da aplicação. Contém as configurações de login, autenticação e
+ * gerenciamento de sessões utilizando JWT e segurança com o Spring Security.
+ *
+ * @author Iad Rodrigues
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)

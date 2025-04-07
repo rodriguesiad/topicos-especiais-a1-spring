@@ -34,7 +34,7 @@ public class TokenService {
     }
 
     public String getSubject(String tokenJWT) throws RuntimeException {
-        tokenJWT = tokenJWT.replace("Bearer", "").strip();
+        tokenJWT = tokenJWT.replace("Bearer ", "").strip();
         Jwt decodedJwt = jwtDecoder.decode(tokenJWT);
 
         return decodedJwt.getSubject();

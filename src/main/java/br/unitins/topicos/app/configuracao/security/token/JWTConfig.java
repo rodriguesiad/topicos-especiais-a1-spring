@@ -1,21 +1,22 @@
 package br.unitins.topicos.app.configuracao.security.token;
 
-import com.nimbusds.jose.jwk.JWK;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.OctetSequenceKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.time.Instant;
+import java.util.Date;
 
 @Configuration
 public class JWTConfig {
@@ -25,12 +26,41 @@ public class JWTConfig {
 
     @Bean
     public JwtEncoder jwtEncoder() {
-        SecretKey secretKey = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
+        SecretKey secretKeySpec = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
 
-        JWK jwk = new OctetSequenceKey.Builder(secretKey).build();
-        JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
+        // Customizando o JwtEncoder para usar chave secreta HMAC SHA-256
+        return parameters -> {
+            try {
+                MACSigner signer = new MACSigner(secretKeySpec);
 
-        return new NimbusJwtEncoder(jwkSource);
+                // Criando os claims do JWT
+                JWTClaimsSet.Builder claimsSetBuilder = new JWTClaimsSet.Builder();
+                parameters.getClaims().getClaims().forEach((key, value) ->
+                        claimsSetBuilder.claim(key, value instanceof Instant ? Date.from((Instant) value) : value)
+                );
+
+                JWTClaimsSet claimsSet = claimsSetBuilder.build();
+
+                // Criando o cabeçalho (header) do JWT
+                JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
+
+                SignedJWT signedJWT = new SignedJWT(header, claimsSet);
+                signedJWT.sign(signer);
+
+                // Retornando o JWT serializado
+                return Jwt.withTokenValue(signedJWT.serialize())
+                        .header("alg", header.getAlgorithm().getName())
+                        .subject(claimsSet.getSubject())
+                        .issuer(claimsSet.getIssuer())
+                        .claims(claims -> claims.putAll(claimsSet.getClaims()))
+                        .issuedAt(claimsSet.getIssueTime().toInstant())
+                        .expiresAt(claimsSet.getExpirationTime().toInstant())
+                        .build();
+
+            } catch (Exception e) {
+                throw new IllegalStateException("Erro na criação do JWT", e);
+            }
+        };
     }
 
     @Bean

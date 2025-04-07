@@ -83,6 +83,11 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity handleIllegalStateException(IllegalStateException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
+    }
+
     public record DataErrorValidation(String name, String message) {
         public DataErrorValidation(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());

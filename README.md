@@ -1,3 +1,4 @@
+
 # Sistema de Gerenciamento de Horas Complementares
 
 Este é um sistema desenvolvido para auxiliar no acompanhamento e controle das atividades complementares realizadas por alunos. O objetivo é garantir que os estudantes cumpram a carga horária exigida em cada categoria de atividade, bem como acompanhar a evolução geral do cumprimento das horas.
@@ -29,3 +30,4 @@ Todos os endpoints (exceto cadastro e login) exigem autenticação via token JWT
 
 Após o login, utilize o token recebido no **header** das requisições, conforme o exemplo:
 
+![img.png](img.png)

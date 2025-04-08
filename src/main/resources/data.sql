@@ -1,8 +1,13 @@
+insert into categoria(id_categoria, nome, data_criacao, data_alteracao) values
+(1, 'Atividades de Ensino e Iniciação à Docência', NOW(), null),
+(2, 'Atividades de Pesquisa', NOW(), null),
+(3, 'Atividades de extensão e atividades/eventos variados', NOW(), null);
+
 insert into subcategoria(nome, id_categoria, carga_horaria_maxima, data_criacao, data_alteracao) values
-('Monitoria reconhecida pela UNITINS e/ou voluntária', 1, 40, NOW(), null),
-('Disciplinas de outros cursos', 1, 60, NOW(), null),
-('Projetos e oficinas temáticas', 1, 30, NOW(), null),
-('Experiência Profissional', 1, 30, NOW(), null);
+    ('Monitoria reconhecida pela UNITINS e/ou voluntária', 1, 40, NOW(), null),
+    ('Disciplinas de outros cursos', 1, 60, NOW(), null),
+    ('Projetos e oficinas temáticas', 1, 30, NOW(), null),
+    ('Experiência Profissional', 1, 30, NOW(), null);
 
 insert into subcategoria(nome, id_categoria, carga_horaria_maxima, data_criacao, data_alteracao) values
 ('Iniciação científica ', 2, 60, NOW(), null),
@@ -21,3 +26,5 @@ insert into subcategoria(nome, id_categoria, carga_horaria_maxima, data_criacao,
 ('Cursos de idiomas, comunicação e expressão e de informática', 3, 30, NOW(), null),
 ('Participação ou trabalho na organização em campanhas da UNITINS', 3, 15, NOW(), null),
 ('Participação como membro do Colegiado do Curso, CONSEPE e/ou CONSUNI ', 3, 30, NOW(), null);
+
+

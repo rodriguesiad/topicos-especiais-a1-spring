@@ -12,14 +12,17 @@ COPY build.gradle settings.gradle ./
 # Garante que o gradlew tenha permissões de execução
 RUN chmod +x gradlew
 
+# Força o uso do protocolo TLS 1.2
+RUN echo "org.gradle.jvmargs=-Dhttps.protocols=TLSv1.2" >> gradle.properties
+
 # Baixa as dependências do Gradle sem compilar os arquivos
-RUN ./gradlew --no-daemon dependencies
+RUN ./gradlew --no-daemon dependencies --stacktrace
 
 # Copia o código fonte da aplicação
 COPY ./src ./src
 
 # Constroe o JAR da aplicação
-RUN ./gradlew build -x test
+RUN ./gradlew build -x test --stacktrace
 
 # Imagem OpenJDK 21 para rodar o jar
 FROM openjdk:21-jdk-slim

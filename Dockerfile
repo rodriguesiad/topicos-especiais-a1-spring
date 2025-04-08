@@ -27,6 +27,11 @@ RUN ./gradlew build -x test --stacktrace
 # Imagem OpenJDK 21 para rodar o jar
 FROM openjdk:21-jdk-slim
 
+# Instala o script wait-for-it.sh para esperar o MySQL
+RUN apt-get update && apt-get install -y curl && \
+    curl -o /wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
+    chmod +x /wait-for-it.sh
+
 # Diretório de trabalho na imagem final
 ENV PROJECT_HOME /usr/src/app
 WORKDIR $PROJECT_HOME
@@ -38,4 +43,4 @@ COPY --from=build $PROJECT_HOME/build/libs/*.jar app.jar
 EXPOSE 8080
 
 # Define o comando para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+ENTRYPOINT ["/wait-for-it.sh", "mysqldb:3306", "--", "java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
